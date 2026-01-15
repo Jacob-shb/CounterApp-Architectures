@@ -32,8 +32,8 @@
 		16E7BE8E2F1426500044188C = {
 			isa = PBXGroup;
 			children = (
-				16E7BE992F1426510044188C /* CounterApp */,
 				16E7BE982F1426510044188C /* Products */,
+				16E7BE992F1426510044188C /* CounterApp */,
 			);
 			sourceTree = "<group>";
 		};
