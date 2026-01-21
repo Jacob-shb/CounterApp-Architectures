@@ -8,7 +8,7 @@
 import Foundation
 
 class CounterInteractor: CounterPresenterToInteractorProtocol {
-    weak var presenter: CounterInteractorToPresenterProtocol?
+    var presenter: CounterInteractorToPresenterProtocol?
     var counter: CounterEntity = CounterEntity()
     
     func fetchCounter() {
