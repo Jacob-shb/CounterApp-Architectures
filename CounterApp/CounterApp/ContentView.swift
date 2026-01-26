@@ -13,6 +13,8 @@ struct ContentView: View {
     enum Architecture: String, CaseIterable {
         case mvvm = "MVVM"
         case viper = "VIPER"
+        case cleanMVVM = "Clean MVVM"
+        case cleanViper = "Clean VIPER"
     }
     
     var body: some View {
@@ -30,6 +32,10 @@ struct ContentView: View {
                 CounterView()
             case .viper:
                 CounterBuilder.build()
+            case .cleanMVVM:
+                CleanMVVMBuilder.build()
+            case .cleanViper:
+                CleanVIPERBuilder.build()
             }
         }
     }
