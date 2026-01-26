@@ -1,4 +1,4 @@
-# Learnings: MVVM vs VIPER
+# Versions: MVVM vs VIPER
 
 Практические выводы после реализации одного и того же приложения (Counter) на двух архитектурах.
 
@@ -164,3 +164,74 @@ view?.updateCounter(value: 5)
 - Простые экраны (Settings, Profile) → MVVM
 - Сложные модули (Payments, Chat) → VIPER
 - Общие компоненты → Clean Architecture
+
+---
+
+## Clean Architecture
+
+### Что это
+Архитектурный подход с разделением на 3 слоя:
+- **Domain** — бизнес-логика (UseCases, Entities)
+- **Data** — инфраструктура (Repository, DataSource)
+- **Presentation** — UI (MVVM/VIPER)
+
+### Ключевые принципы
+- **Dependency Rule**: зависимости направлены ВНУТРЬ (от UI к Domain)
+- **Domain не зависит** от UI, БД, фреймворков
+- **Инверсия зависимостей**: Domain определяет интерфейсы (протоколы), Data реализует
+
+### Плюсы
+- Бизнес-логика полностью изолирована
+- Легко менять UI (SwiftUI → UIKit)
+- Легко менять источник данных (memory → UserDefaults → CoreData)
+- Максимальная тестируемость (каждый слой отдельно)
+- Переиспользование UseCases между MVVM и VIPER
+
+### Минусы
+- Много слоёв = много файлов
+- Сложность для простых задач (оверкилл для To-Do app)
+- Требует глубокого понимания принципов
+
+### Clean MVVM vs Clean VIPER
+
+**Clean MVVM:**
+```
+UseCases → ViewModel → View
+```
+- Проще, меньше компонентов
+- ViewModel напрямую использует UseCases
+
+**Clean VIPER:**
+```
+UseCases → Interactor → Presenter → View
+```
+- Больше слоёв разделения
+- Interactor изолирует UseCases от Presenter
+
+### Когда использовать Clean Architecture
+- Крупные проекты (100+ экранов)
+- Долгосрочные проекты (5+ лет поддержки)
+- Команды 5+ разработчиков
+- Когда бизнес-логика сложная и критичная
+- Когда нужна миграция UI или источников данных
+
+---
+
+### Что использовать в реальных проектах?
+
+**Для учебных проектов / MVP:**
+→ Простой MVVM
+
+**Для стартапов (до 50 экранов):**
+→ MVVM + отдельные UseCases для сложной логики
+
+**Для средних проектов (50-100 экранов):**
+→ Clean MVVM
+
+**Для крупных корпоративных проектов (100+ экранов):**
+→ Clean Architecture + VIPER для сложных модулей
+
+**Гибридный подход (как в Яндекс):**
+- Settings, Profile → MVVM
+- Payments, Analytics → Clean VIPER
+- Shared business logic → Domain layer
